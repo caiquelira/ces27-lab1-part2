@@ -81,7 +81,8 @@ func (worker *Worker) RunReduce(args *RunArgs, _ *struct{}) error {
 // Will be called by Master when the task is done.
 func (worker *Worker) Done(_ *struct{}, _ *struct{}) error {
 	log.Println("Done.")
-	defer func() {
+	go func() {
+		time.Sleep(time.Second*2)
 		close(worker.done)
 	}()
 	return nil
